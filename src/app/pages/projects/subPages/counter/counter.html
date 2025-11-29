@@ -1,0 +1,14 @@
+<div class="w-full h-full p-10 flex justify-center mx-auto text-center text-black ">
+    <div class="flex gap-10 flex-col">
+         <h1 class="text-5xl underline text-green-700">Counter App</h1>
+
+        <div>
+            <h2 class="px-6 py-3 border-2 inline text-2xl">{{count}}</h2>
+        </div>
+        <div>
+            <button (click)="handleCounter('plus')" class="btn bg-green-600">Increment</button>
+            <button (click)="handleCounter('minus')" class="btn bg-red-600">Decrement</button>
+            <button (click)="handleCounter('reset')" class="btn bg-black">Reset</button>
+        </div>
+    </div>
+</div>

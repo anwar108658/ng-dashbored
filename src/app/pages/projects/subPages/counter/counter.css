@@ -1,0 +1,14 @@
+.btn{
+    width: 80px;
+    aspect-ratio: 1;
+    margin: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+    border-radius: 50%;
+    transition: all 0.5s linear;
+    &:hover{
+        filter: brightness(85%);
+        scale: 1.1 1.1 2;
+    }
+}

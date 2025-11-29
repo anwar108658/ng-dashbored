@@ -1,0 +1,17 @@
+:host ::ng-deep .p-tabs-nav,
+:host ::ng-deep .p-tablist-tab-list {
+    border-color: #ffffff;
+    padding: 5px;
+    box-shadow: none !important;
+}
+/* Inside your component CSS */
+:host ::ng-deep .p-tab-active{
+  background-color: #2284c53b;
+  border-radius: 10px;
+}
+:host ::ng-deep .p-tab {
+    color: rgb(8, 119, 119);
+  border: 0;
+  border-color: #ffffff !important; 
+}
+
