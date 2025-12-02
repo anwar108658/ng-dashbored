@@ -1,23 +1,134 @@
-<div>
+<div class="relative text-gray-700">
+  <!-- todo Heading -->
+
   <div
     class="bg-[linear-gradient(rgba(0,0,0,0.5)),url(https://images.pexels.com/photos/370799/pexels-photo-370799.jpeg?cs=srgb&dl=pexels-daniela-elena-tentis-118658-370799.jpg&fm=jpg)] bg-no-repeat bg-cover bg-center flex items-center justify-center"
   >
     <h1 class="text-5xl my-5 text-blue-200">Todo App</h1>
   </div>
+
+  <!-- Todo-tabs -->
+
   <div>
     <p-tabs value="/dashboard" class="bg-white!">
-      <p-tablist
-      class="bg-white!"
-      >
+      <p-tablist class="bg-white!">
         @for(tab of tabs; track tab.route){
-        <p-tab [value]="tab.route" class=" bg-white text-black border-b-[#023480]! flex items-center p-2 gap-2! text-[.7rem] justify-center">
+        <p-tab
+          [value]="tab.route"
+          class="bg-white text-black border-b-[#023480]! flex items-center p-2 gap-2! text-[.7rem]"
+        >
           <i [class]="tab.icon"></i>
           <span>{{ tab.label }}</span>
         </p-tab>
         }
       </p-tablist>
     </p-tabs>
-    <!--<router-outlet></router-outlet>-->
   </div>
-  <div></div>
+  <div class="mt-6 mx-auto max-w-[900px]">
+
+    <!-- Todo-Add Input -->
+
+    <div class="flex justify-between items-center p-1 px-4 rounded-lg bg-white/60">
+      <h2 class="font-semibold">Tasks :</h2>
+      <p-button
+        (onClick)="isOpen(true)"
+        label="Add Task"
+        icon="fa fa-plus"
+        [variant]="'text'"
+        styleClass="p-1 px-2 text-[.9rem] text-green-600"
+      />
+    </div>
+  </div>
+
+  <!-- Todo-Add-Task-Popup  -->
+
+  <div
+    [className]="(!isPopupOpen?'hidden':'absolute top-0 w-full h-screen flex items-center justify-center bg-black/40 backdrop-blur-xs')"
+  >
+    <form #todoForm="ngForm" (ngSubmit)="addTask(todoForm)" class="w-full max-w-[600px] flex flex-col gap-5 bg-white rounded-md p-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-semibold">Task Details</h1>
+        <p-button (onClick)="isOpen(false)" styleClass="p-1" severity="danger" [variant]="'text'" icon="fa fa-close" />
+      </div>
+      <p-floatlabel variant="on">
+        <input
+          ngModel
+          name="title"
+          #title="ngModel"
+          required
+          minlength="3"
+          type="text"
+          pInputText
+          id="on_label"
+          pSize="small"
+          class="w-full text-[.8rem]"
+          autocomplete="off"
+        />
+        <label for="on_label">Title</label>
+      </p-floatlabel>
+      <div class="flex gap-2 flex-wrap">
+        <p-floatlabel class="flex-1" variant="on">
+          <p-select
+          ngModel
+          name="priority"
+          #priority="ngModel"
+          required
+          [options]="priorities"
+          inputId="on_label" 
+          size="small" 
+          optionLabel="name"
+          fluid 
+          />
+          <label for="on_label">Priority</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on" class="flex-1">
+          <p-datepicker
+            ngModel
+            name="deadline"
+            #deadline="ngModel"
+            required
+            fluid
+            inputId="on_label"
+            class="text-[.8rem] border-blue-500"
+            showClear
+            size="small"
+            showIcon
+            iconDisplay="input"
+          />
+          <label for="on_label">DeadLine</label>
+        </p-floatlabel>
+      </div>
+      <p-floatlabel variant="on">
+        <textarea
+          ngModel
+          name="comments"
+          #comments="ngModel"
+          required
+          pTextarea
+          id="over_label"
+          fluid
+          rows="4"
+          style="resize: none"
+          class="h-full"
+        ></textarea>
+        <label for="on_label">Comments</label>
+      </p-floatlabel>
+      <div class="flex justify-end gap-4">
+        <p-toast />
+        <p-button
+          label="Close"
+          (onClick)="isOpen(false)"
+          [variant]="'outlined'"
+          severity="danger"
+          styleClass="p-1 px-3 text-[.9rem] "
+        />
+        <p-button
+          type="submit"
+          label="Add Task"
+          icon="fa fa-plus"
+          styleClass="p-1 px-2 text-[.9rem]"
+        />
+      </div>
+    </form>
+  </div>
 </div>
