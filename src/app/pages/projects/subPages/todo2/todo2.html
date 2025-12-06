@@ -7,28 +7,10 @@
     <h1 class="text-5xl my-5 text-blue-200">Todo App</h1>
   </div>
 
-  <!-- Todo-tabs -->
-
-  <div>
-    <p-tabs value="/dashboard" class="bg-white!">
-      <p-tablist class="bg-white!">
-        @for(tab of tabs; track tab.route){
-        <p-tab
-          [value]="tab.route"
-          class="bg-white text-black border-b-[#023480]! flex items-center p-2 gap-2! text-[.7rem]"
-        >
-          <i [class]="tab.icon"></i>
-          <span>{{ tab.label }}</span>
-        </p-tab>
-        }
-      </p-tablist>
-    </p-tabs>
-  </div>
-  <div class="mt-6 mx-auto max-w-[900px]">
-
+  <div class="my-6 mx-auto max-w-[900px]">
     <!-- Todo-Add Input -->
 
-    <div class="flex justify-between items-center p-1 px-4 rounded-lg bg-white/60">
+    <div class="flex justify-between items-center p-1 px-4 rounded-lg bg-white/80">
       <h2 class="font-semibold">Tasks :</h2>
       <p-button
         (onClick)="isOpen(true)"
@@ -40,10 +22,44 @@
     </div>
   </div>
 
+    <!-- Todo-tabs -->
+
+  <div>
+    <p-tabs value="Today">
+      <p-tablist class="bg-white flex! items-center! justify-center!">
+        @for(tab of tabs; track tab.route){
+        <p-tab
+          [value]="tab.route"
+          class="bg-white text-black border-b-[#023480]! flex items-center p-2 gap-2! text-[.7rem]"
+        >
+          <i [class]="tab.icon"></i>
+          <span>{{ tab.label }}</span>
+        </p-tab>
+        }
+      </p-tablist>
+       <p-tabpanels>
+            @for (tab of tabs; track tab.route) {
+                <p-tabpanel [value]="tab.route">
+                  @if (tab.todos()) {
+                    @for (item of tab.todos(); track $index) {
+                      <p>{{item.id}}</p>
+                    }
+                  }
+                </p-tabpanel>
+            }
+        </p-tabpanels>
+    </p-tabs>
+  </div>
+
+  <!--  Todo Grid -->
+
+
+
+
   <!-- Todo-Add-Task-Popup  -->
 
   <div
-    [className]="(!isPopupOpen?'hidden':'absolute top-0 w-full h-screen flex items-center justify-center bg-black/40 backdrop-blur-xs')"
+    [className]="(!isPopupOpen?'hidden':'absolute right-0 top-0 w-full h-screen flex items-center justify-center bg-black/40 backdrop-blur-xs')"
   >
     <form #todoForm="ngForm" (ngSubmit)="addTask(todoForm)" class="w-full max-w-[600px] flex flex-col gap-5 bg-white rounded-md p-4">
       <div class="flex justify-between items-center">
@@ -56,7 +72,7 @@
           name="title"
           #title="ngModel"
           required
-          minlength="3"
+          minlength="5"
           type="text"
           pInputText
           id="on_label"
@@ -93,7 +109,9 @@
             showClear
             size="small"
             showIcon
+            [minDate]="today"
             iconDisplay="input"
+            dateFormat="dd-mm-yy"
           />
           <label for="on_label">DeadLine</label>
         </p-floatlabel>
@@ -104,6 +122,7 @@
           name="comments"
           #comments="ngModel"
           required
+          minlength="10"
           pTextarea
           id="over_label"
           fluid
@@ -121,7 +140,7 @@
           [variant]="'outlined'"
           severity="danger"
           styleClass="p-1 px-3 text-[.9rem] "
-        />
+        />    
         <p-button
           type="submit"
           label="Add Task"

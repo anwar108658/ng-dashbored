@@ -5,14 +5,17 @@
 }
 /* Inside your component CSS */
 :host ::ng-deep .p-tab-active{
-  background-color: #2284c528;
+  background-color: #22c5c51f;
+  color: rgb(23, 170, 207) !important;
+}
+:host ::ng-deep .p-tablist-active-bar{
+  background-color: rgb(23, 170, 207) !important;
 }
 :host ::ng-deep .p-tab {
-  color: rgb(8, 119, 119);
+  color: rgb(7, 99, 99);
   border: 0;
   border-color: #ffffff !important; 
 }
-
 :host ::ng-deep .p-datepicker-input , .p-select , .p-textarea , .p-inputtext{
   border-color: #2b8eff6c !important;
   font-size: .9rem;
